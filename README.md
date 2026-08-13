@@ -1,5 +1,5 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# DevOps Foundations Day 1: Deploy and Ship Software
+This is the repository for the LinkedIn Learning course `DevOps Foundations Day 1: Deploy and Ship Software`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![course-name-alt-text][lil-thumbnail-url] 
 
