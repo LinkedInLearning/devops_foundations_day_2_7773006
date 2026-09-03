@@ -1,35 +1,49 @@
-# DevOps Foundations Day 1: Deploy and Ship Software
-This is the repository for the LinkedIn Learning course `DevOps Foundations Day 1: Deploy and Ship Software`. The full course is available from [LinkedIn Learning][lil-course-url].
+# DevOps Foundations Day 2
 
-![course-name-alt-text][lil-thumbnail-url] 
+This is the repository for the LinkedIn Learning course `DevOps Foundations Day 2`. The full course is available from
+[LinkedIn Learning][lil-course-url].
 
-_See the readme file in the main branch for updated instructions and information._
-## Instructions
-This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
+![course-name-alt-text][lil-thumbnail-url]
 
-## Branches
-The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. 
-Some branches will have a beginning and an end state. These are marked with the letters `b` for "beginning" and `e` for "end". The `b` branch contains the code as it is at the beginning of the movie. The `e` branch contains the code as it is at the end of the movie. The `main` branch holds the final state of the code when in the course.
+## Getting started
 
-When switching from one exercise files branch to the next after making changes to the files, you may get a message like this:
+For all labs in this course, you can choose from one of the two following options:
 
-    error: Your local changes to the following files would be overwritten by checkout:        [files]
-    Please commit your changes or stash them before you switch branches.
-    Aborting
+1. **Codespaces**. Codespaces gives you a virtual environment with an IDE (Visual Studio Code), a terminal, and all the
+   tools you need already installed, so you can write and run code from your web browser, without having to install
+   anything locally. To use codespaces:
 
-To resolve this issue:
-	
-    Add changes to git using this command: git add .
-	Commit changes using this command: git commit -m "some message"
+    1. Click the green Code button in the top right of the repo.
+    2. Select the Codespaces tab.
+    3. Click the "Create codespace on main" button.
 
-## Installing
-1. To use these exercise files, you must have the following installed:
-	- [list of requirements for course]
-2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
-3. [Course-specific instructions]
+2. **Your own computer**. Alternatively, you can install and run everything from your own computer. Note that the
+   scripts and commands in this course assume you’re on Linux or macOS; if you’re on Windows, you’ll need to use the
+   [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) or
+   [Cygwin](https://cygwin.com/).
 
+    1. `git clone` this repo into a folder on your computer.
+    2. Go into that folder.
+    3. [Install Mise](https://mise.jdx.dev/getting-started.html).
+    4. Use Mise to install the tools for this course:
 
-[0]: # (Replace these placeholder URLs with actual course URLs)
+    ```shell
+    cd .devcontainer
+    mise trust .mise.toml
+    mise install
+    ```
+
+## Folder structure
+
+The code to use at the start of a lab will be in a folder named `chapter-xx/lab-yy/begin`. The “official” solution for
+what the code should look like at the end of a lab will be in a folder named `chapter-xx/lab-yy/end`.
+
+For example, for the lab in chapter 1, section 2:
+
+- `chapter-01/lab-02/begin`: Do all your coding in this folder.
+- `chapter-01/lab-02/end`: The "official" solution in case you get stuck or want to compare your code.
+
+<!-- TODO: fill in these URLs -->
 
 [lil-course-url]: https://www.linkedin.com/learning/
 [lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQG0eDHsyOSqTA/learning-public-crop_675_1200/B4EZVdqqdwHUAY-/0/1741033220778?e=2147483647&v=beta&t=FxUDo6FA8W8CiFROwqfZKL_mzQhYx9loYLfjN-LNjgA

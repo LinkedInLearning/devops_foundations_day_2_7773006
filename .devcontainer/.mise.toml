@@ -1,0 +1,11 @@
+# Pins tool versions for local development and CI. Install mise: https://mise.jdx.dev
+# Run `mise install` in the repo root to activate these versions locally.
+[settings]
+lockfile = true
+
+[tools]
+aws-cli = { version = "2.27.41", symlink_bins = true }
+node = "25.9.0"
+packer = "1.14.2"
+terragrunt = "1.0.4"
+opentofu = "1.11.6"
