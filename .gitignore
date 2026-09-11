@@ -22,7 +22,3 @@ node_modules
 
 # macOS
 .DS_Store
-
-# Screen capture demos for the course. These are examples I have just locally, but don't need to be checked in, as
-# they aren't meant for students to use
-screen-capture-demos
