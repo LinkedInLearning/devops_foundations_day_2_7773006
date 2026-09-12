@@ -1,6 +1,6 @@
-output "alb_dns_name" {
-  description = "The DNS name of the ALB"
-  value       = module.vervium_cloud_ai.alb_dns_name
+output "domain_name" {
+  description = "The domain name name of the ALB"
+  value       = module.alb.domain_name
 }
 
 output "dashboard_url" {

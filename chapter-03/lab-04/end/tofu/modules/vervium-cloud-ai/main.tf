@@ -1,5 +1,5 @@
-module "vervium_cloud_ai" {
-  source = "../../modules/vervium-asg-alb"
+module "asg" {
+  source = "../vervium-asg"
 
   name             = "vervium-cloud-ai-${var.environment_name}"
   instance_type    = "t3.micro"
@@ -11,9 +11,10 @@ module "vervium_cloud_ai" {
   min_instances = 2
   max_instances = 5
 
-  vpc_id         = module.vpc.vpc.id
-  asg_subnet_ids = module.vpc.private_subnets[*].id
-  alb_subnet_ids = module.vpc.public_subnets[*].id
+  vpc_id                = module.vpc.vpc.id
+  subnet_ids            = module.vpc.private_subnets[*].id
+  target_group_arn      = module.alb.target_group_arn
+  alb_security_group_id = module.alb.security_group_id
 
   # Allow the EC2 instances to talk to the interface endpoints so they can make API calls to AWS
   allow_asg_egress = {
@@ -24,6 +25,15 @@ module "vervium_cloud_ai" {
       referenced_security_group_id = module.vpc.interface_sg_id
     }
   }
+}
+
+module "alb" {
+  source = "../vervium-alb"
+
+  name                  = "vervium-cloud-ai-${var.environment_name}"
+  vpc_id                = module.vpc.vpc.id
+  subnet_ids            = module.vpc.public_subnets[*].id
+  app_security_group_id = module.asg.security_group_id
 }
 
 module "vpc" {
@@ -59,7 +69,7 @@ module "availability_monitoring" {
 
   app_url = {
     scheme = "http"
-    host   = module.vervium_cloud_ai.alb_dns_name
+    host   = module.alb.domain_name
     port   = 80
     path   = "/"
   }
@@ -72,7 +82,7 @@ module "dashboard" {
   source = "../../modules/cloudwatch-dashboard"
 
   name             = "vervium-cloud-ai-${var.environment_name}"
-  alb_arn          = module.vervium_cloud_ai.alb_arn
-  target_group_arn = module.vervium_cloud_ai.target_group_arn
-  asg_name         = module.vervium_cloud_ai.asg_name
+  alb_arn          = module.alb.alb_arn
+  target_group_arn = module.alb.target_group_arn
+  asg_name         = module.asg.asg_name
 }

@@ -1,5 +1,5 @@
-module "vervium_cloud_ai" {
-  source = "../../modules/vervium-asg-alb"
+module "asg" {
+  source = "../../modules/vervium-asg"
 
   name          = "vervium-cloud-ai"
   instance_type = "t3.micro"
@@ -13,9 +13,17 @@ module "vervium_cloud_ai" {
   min_instances = 2
   max_instances = 5
 
-  vpc_id         = data.aws_vpc.default.id
-  asg_subnet_ids = data.aws_subnets.default.ids
-  alb_subnet_ids = data.aws_subnets.default.ids
+  vpc_id           = data.aws_vpc.default.id
+  subnet_ids       = data.aws_subnets.default.ids
+  target_group_arn = module.alb.target_group_arn
+}
+
+module "alb" {
+  source = "../../modules/vervium-alb"
+
+  name       = "vervium-cloud-ai"
+  vpc_id     = data.aws_vpc.default.id
+  subnet_ids = data.aws_subnets.default.ids
 }
 
 module "availability_monitoring" {
@@ -30,7 +38,7 @@ module "availability_monitoring" {
 
   app_url = {
     scheme = "http"
-    host   = module.vervium_cloud_ai.alb_dns_name
+    host   = module.alb.domain_name
     port   = 80
     path   = "/"
   }
@@ -43,9 +51,9 @@ module "dashboard" {
   source = "../../modules/cloudwatch-dashboard"
 
   name             = "vervium-cloud-ai"
-  alb_arn          = module.vervium_cloud_ai.alb_arn
-  target_group_arn = module.vervium_cloud_ai.target_group_arn
-  asg_name         = module.vervium_cloud_ai.asg_name
+  alb_arn          = module.alb.alb_arn
+  target_group_arn = module.alb.target_group_arn
+  asg_name         = module.asg.asg_name
 }
 
 data "aws_vpc" "default" {
