@@ -56,13 +56,11 @@ build {
 
       # Use systemd as a process supervisor, configuring the app to start on boot, and restarting it any time it crashes
       "sudo mv /home/app-user/app/vervium-cloud-ai.service /etc/systemd/system/",
-      "sudo systemctl enable vervium-cloud-ai",
 
       # Install the CloudWatch agent
       "curl -fsSL -o /tmp/amazon-cloudwatch-agent.deb https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb",
       "sudo dpkg -i /tmp/amazon-cloudwatch-agent.deb",
-      "sudo mv /home/app-user/app/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
-      "sudo systemctl enable amazon-cloudwatch-agent"
+      "sudo mv /home/app-user/app/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json"
     ]
   }
 }
