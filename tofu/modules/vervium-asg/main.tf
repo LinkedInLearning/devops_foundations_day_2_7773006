@@ -7,7 +7,6 @@ resource "aws_launch_template" "app" {
   image_id               = var.ami
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.app.id]
-  key_name               = var.key_name
 
   user_data = base64encode(templatefile("${path.module}/user-data.sh", {environment_name = var.environment_name}))
 
@@ -85,6 +84,11 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_agent" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "ssm_policy_attach" {
+  role       = aws_iam_role.app.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # SECURITY GROUP
 # ---------------------------------------------------------------------------------------------------------------------
@@ -95,24 +99,19 @@ resource "aws_security_group" "app" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "http_app" {
-  security_group_id = aws_security_group.app.id
-  ip_protocol       = "tcp"
-  from_port         = 8080
-  to_port           = 8080
-  cidr_ipv4         = "0.0.0.0/0"
+  security_group_id            = aws_security_group.app.id
+  ip_protocol                  = "tcp"
+  from_port                    = 8080
+  to_port                      = 8080
+  referenced_security_group_id = var.alb_security_group_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ssh_app" {
-  count             = var.key_name == null ? 0 : 1
-  security_group_id = aws_security_group.app.id
-  ip_protocol       = "tcp"
-  from_port         = 22
-  to_port           = 22
-  cidr_ipv4         = "0.0.0.0/0"
-}
-
-resource "aws_vpc_security_group_egress_rule" "all_app" {
-  security_group_id = aws_security_group.app.id
-  ip_protocol       = "all"
-  cidr_ipv4         = "0.0.0.0/0"
+resource "aws_vpc_security_group_egress_rule" "app" {
+  for_each                     = var.allow_asg_egress
+  security_group_id            = aws_security_group.app.id
+  ip_protocol                  = each.value.ip_protocol
+  from_port                    = each.value.from_port
+  to_port                      = each.value.to_port
+  cidr_ipv4                    = each.value.cidr_ipv4
+  referenced_security_group_id = each.value.referenced_security_group_id
 }

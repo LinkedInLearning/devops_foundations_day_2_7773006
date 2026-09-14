@@ -42,6 +42,11 @@ variable "target_group_arn" {
   type        = string
 }
 
+variable "alb_security_group_id" {
+  description = "The ID of the security group of the ALB"
+  type        = string
+}
+
 variable "environment_name" {
   description = "The name of the environment we're deploying into"
   type        = string
@@ -51,8 +56,14 @@ variable "environment_name" {
 # OPTIONAL PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "key_name" {
-  description = "The name of the EC2 Key Pair to associate with the EC2 instance"
-  type        = string
-  default     = null
+variable "allow_asg_egress" {
+  description = "The EC2 instances in the ASG will be allowed to make outbound network calls to the IPs and security groups specified via this variable."
+  type = map(object({
+    ip_protocol                  = string
+    from_port                    = number
+    to_port                      = number
+    referenced_security_group_id = optional(string)
+    cidr_ipv4                    = optional(string)
+  }))
+  default = {}
 }
