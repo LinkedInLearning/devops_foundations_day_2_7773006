@@ -9,6 +9,21 @@ module "vervium_cloud_ai" {
 
   # TODO: fill in your own Key Pair name below!
   key_name = "REPLACE_ME"
+
+  min_instances = 2
+  max_instances = 5
+
+  vpc_id           = data.aws_vpc.default.id
+  subnet_ids       = data.aws_subnets.default.ids
+  target_group_arn = module.alb.target_group_arn
+}
+
+module "alb" {
+  source = "../../modules/vervium-alb"
+
+  name       = "vervium-cloud-ai"
+  vpc_id     = data.aws_vpc.default.id
+  subnet_ids = data.aws_subnets.default.ids
 }
 
 module "availability_monitoring" {
@@ -23,8 +38,8 @@ module "availability_monitoring" {
 
   app_url = {
     scheme = "http"
-    ip     = module.vervium_cloud_ai.ip
-    port   = 8080
+    host   = module.alb.domain_name
+    port   = 80
     path   = "/"
   }
 
@@ -32,23 +47,22 @@ module "availability_monitoring" {
   alerts_email_addresses = ["REPLACE_ME"]
 }
 
-module "availability_monitoring" {
-  source = "../../modules/availability-monitoring"
+module "dashboard" {
+  source = "../../modules/cloudwatch-dashboard"
 
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
+  name             = "vervium-cloud-ai"
+  alb_arn          = module.alb.alb_arn
+  target_group_arn = module.alb.target_group_arn
+  asg_name         = module.asg.asg_name
+}
+
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
   }
-
-  name = "vervium-cloud-ai"
-
-  app_url = {
-    scheme = "http"
-    ip     = module.vervium_cloud_ai.ip
-    port   = 8080
-    path   = "/"
-  }
-
-  # TODO: fill in your own email addresses
-  alerts_email_addresses = ["jim+devops-foundations-test-1@gruntwork.io"]
 }
