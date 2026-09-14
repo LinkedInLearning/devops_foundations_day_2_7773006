@@ -6,7 +6,9 @@ After=network.target
 Type=simple
 User=app-user
 WorkingDirectory=/home/app-user/app
-Environment="NODE_ENV=production"
+EnvironmentFile=/home/app-user/app/vervium-cloud-ai.env
+StandardOutput=append:/var/log/vervium-cloud-ai.log
+StandardError=append:/var/log/vervium-cloud-ai.log
 ExecStart=/home/app-user/.local/bin/mise exec -- npm start
 Restart=on-failure
 
