@@ -1,6 +1,6 @@
 output "domain_name" {
-  description = "The domain name of the ALB"
-  value       = aws_lb.app.dns_name
+  description = "The domain name for this app"
+  value       = aws_route53_record.custom_domain_name.name
 }
 
 output "alb_arn" {

@@ -67,3 +67,23 @@ resource "aws_vpc_security_group_egress_rule" "app_health_checks" {
   to_port                      = 8080
   referenced_security_group_id = var.app_security_group_id
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CUSTOM DOMAIN NAME
+# ---------------------------------------------------------------------------------------------------------------------
+
+data "aws_route53_zone" "app" {
+  name = "${var.custom_domain_name.apex_domain}."
+}
+
+resource "aws_route53_record" "custom_domain_name" {
+  zone_id = data.aws_route53_zone.app.zone_id
+  name    = "${var.custom_domain_name.subdomain}.${var.custom_domain_name.apex_domain}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.app.dns_name
+    zone_id                = aws_lb.app.zone_id
+    evaluate_target_health = true
+  }
+}
