@@ -17,6 +17,31 @@ variable "instance_type" {
   type        = string
 }
 
+variable "min_instances" {
+  description = "Minimum number of instances to have in the ASG"
+  type        = number
+}
+
+variable "max_instances" {
+  description = "Maximum number of instances to have in the ASG"
+  type        = number
+}
+
+variable "vpc_id" {
+  description = "The ID of the VPC to deploy into"
+  type        = string
+}
+
+variable "subnet_ids" {
+  description = "The IDs of the subnets into which the instances should be deployed"
+  type        = list(string)
+}
+
+variable "target_group_arn" {
+  description = "The ARN of the ALB target group"
+  type        = string
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
