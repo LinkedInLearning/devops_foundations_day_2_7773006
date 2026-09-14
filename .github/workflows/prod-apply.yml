@@ -1,0 +1,21 @@
+name: Terragrunt Apply Prod
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tofu/live/prod/**'
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  apply:
+    uses: ./.github/workflows/apply.yml
+    with:
+      tg_dir: tofu/live/prod
+      # TODO: fill in your own IAM role ARN!
+      role_to_assume: arn:aws:iam::168852252849:role/github-actions-apply
