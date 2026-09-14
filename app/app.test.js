@@ -7,6 +7,6 @@ describe("Test the frontend app", () => {
     expect(response.statusCode).toBe(200);
     expect(response.text).toContain("Vervium CloudAI");
     expect(response.text).toContain("Synergy");
-    expect(response.text).toContain("95.4%");
+    expect(response.text).toContain("96.4%");
   });
 });
