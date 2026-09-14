@@ -5,8 +5,29 @@ module "vervium_cloud_ai" {
   instance_type = "t3.micro"
 
   # TODO: fill in your own AMI ID below!
-  ami = "ami-09f833cbef0620166"
+  ami = "ami-0af3f29bfc9acfd50"
 
   # TODO: fill in your own Key Pair name below!
   key_name = "jim-brikman-personal-mgmt-us-east-2"
+}
+
+module "availability_monitoring" {
+  source = "../../modules/availability-monitoring"
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
+
+  name = "vervium-cloud-ai"
+
+  app_url = {
+    scheme = "http"
+    ip     = module.vervium_cloud_ai.ip
+    port   = 8080
+    path   = "/"
+  }
+
+  # TODO: fill in your own email addresses
+  alerts_email_addresses = ["jim+devops-foundations-test-1@gruntwork.io"]
 }
