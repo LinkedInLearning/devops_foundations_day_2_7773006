@@ -34,6 +34,7 @@ module "alb" {
   vpc_id                = module.vpc.vpc.id
   subnet_ids            = module.vpc.public_subnets[*].id
   app_security_group_id = module.asg.security_group_id
+  custom_domain_name    = var.custom_domain_name
 }
 
 module "vpc" {
