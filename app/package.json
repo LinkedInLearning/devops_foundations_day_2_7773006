@@ -3,7 +3,8 @@
   "description": "Vervium Cloud AI. Now with 400% more cloud.",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "packer init app.pkr.hcl && packer build app.pkr.hcl"
   },
   "dependencies": {
     "ejs": "^5.0.1",
