@@ -29,7 +29,7 @@
         "collect_list": [
           {
             "file_path": "/var/log/vervium-cloud-ai.log",
-            "log_group_name": "/aws/ec2/vervium-cloud-ai",
+            "log_group_name": "/aws/ec2/vervium-cloud-ai-__ENVIRONMENT_NAME__",
             "log_stream_name": "{instance_id}/vervium-cloud-ai.log",
             "retention_in_days": 30,
             "timezone": "UTC"
