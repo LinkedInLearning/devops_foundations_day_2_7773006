@@ -15,4 +15,8 @@ inputs = {
     apex_domain = "devops-foundations.com"
     subdomain   = "staging"
   }
+
+  custom_tags = {
+    Testing = "The GitOps Workflow"
+  }
 }
