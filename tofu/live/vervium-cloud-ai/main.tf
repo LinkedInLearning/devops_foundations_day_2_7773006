@@ -31,3 +31,24 @@ module "availability_monitoring" {
   # TODO: fill in your own email addresses
   alerts_email_addresses = ["REPLACE_ME"]
 }
+
+module "availability_monitoring" {
+  source = "../../modules/availability-monitoring"
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
+
+  name = "vervium-cloud-ai"
+
+  app_url = {
+    scheme = "http"
+    ip     = module.vervium_cloud_ai.ip
+    port   = 8080
+    path   = "/"
+  }
+
+  # TODO: fill in your own email addresses
+  alerts_email_addresses = ["jim+devops-foundations-test-1@gruntwork.io"]
+}
