@@ -19,3 +19,13 @@ variable "custom_domain_name" {
     subdomain   = string
   })
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "custom_tags" {
+  description = "Custom tags to apply to the EC2 instances"
+  type        = map(string)
+  default     = {}
+}

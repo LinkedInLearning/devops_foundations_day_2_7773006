@@ -4,6 +4,7 @@ module "asg" {
   name             = "vervium-cloud-ai-${var.environment_name}"
   instance_type    = "t3.micro"
   environment_name = var.environment_name
+  custom_tags      = var.custom_tags
 
   # TODO: fill in your own AMI ID below!
   ami = "ami-004d5878b9a69f971"

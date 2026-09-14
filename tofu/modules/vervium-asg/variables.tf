@@ -67,3 +67,9 @@ variable "allow_asg_egress" {
   }))
   default = {}
 }
+
+variable "custom_tags" {
+  description = "Custom tags to apply to the EC2 instances"
+  type        = map(string)
+  default     = {}
+}
