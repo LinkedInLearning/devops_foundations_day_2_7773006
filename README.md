@@ -47,17 +47,20 @@ This course consists of a series of labs that build on each other.
   code should look like at the _end_ of a lab (e.g., if you're stuck or to check your solution), take a look at
   the branch with the name `chapter-xx/lab-yy`, where `xx` is the 2-digit chapter number and `yy` is the 2-digit lab
   number. For example, to see what the code should like like at the end of lab 8 in Chapter 2, take a look at the
-  branch `chapter-02/lab-08`.
+  branch
+  [`chapter-02/lab-08`](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/tree/chapter-02/lab-08).
 
 * **Use the previous lab's branch to see what the code should look like at the _beginning_ of a lab.** To see what the
   code should look like at the _beginning_ of a lab (e.g., because you skipped a lab or your code is a bit different),
   take a look at the branch of the previous lab. The labs all build on each other, so the code at the end of the
   previous lab is the code you use at the start of the next lab. For example, to see what the code should like like at
-  the beginning of lab 8 in Chapter 2, take a look at the branch `chapter-02/lab-05`.
+  the beginning of lab 8 in Chapter 2, take a look at the branch
+  [`chapter-02/lab-05`](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/tree/chapter-02/lab-05).
 
 * **See all the labs.** To see all the labs, you can do one of the following:
 
-    * Open [the branches page](/branches/all) in your browser.
+    * Open [the branches page](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/branches/all) in
+      your browser.
     * Run `git branch` in your terminal.
 
 * **See what changed between labs.** If you want to see what changed between two labs, rather than just
@@ -66,7 +69,7 @@ This course consists of a series of labs that build on each other.
     * [Use GitHub compare](/compare) in your browser. You can use the UI to select the branches to compare, or you can
       manually format the URL: e.g., use `/compare/<BRANCH_1>...<BRANCH_2>` to compare `BRANCH_1` to `BRANCH_2`. For
       example, to see the changes between lab 5 and lab 8 of Chapter 8, use the URL
-      [/compare/chapter-02/lab-05...chapter-02/lab-08](/compare/chapter-02/lab-05...chapter-02/lab-08).
+      [/compare/chapter-02/lab-05...chapter-02/lab-08](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/compare/chapter-02/lab-05...chapter-02/lab-08).
 
     * Run `git diff <BRANCH_1> <BRANCH_2>` in your terminal. For example, to see the changes between lab 5 and lab 8 of
       Chapter 8, run `git diff chapter-02/lab-05 chapter-02/lab-08`.
