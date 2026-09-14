@@ -5,7 +5,7 @@ module "asg" {
   instance_type = "t3.micro"
 
   # TODO: fill in your own AMI ID below!
-  ami = "ami-08767ce8f5b17b5c7"
+  ami = "ami-05fb8f663bb170f89"
 
   # TODO: fill in your own Key Pair name below!
   key_name = "jim-brikman-personal-mgmt-us-east-2"

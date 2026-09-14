@@ -1,5 +1,5 @@
 output "domain_name" {
-  description = "The domain name name of the ALB"
+  description = "The domain name of the ALB"
   value       = module.alb.domain_name
 }
 
