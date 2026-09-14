@@ -42,6 +42,11 @@ variable "target_group_arn" {
   type        = string
 }
 
+variable "environment_name" {
+  description = "The name of the environment we're deploying into"
+  type        = string
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------

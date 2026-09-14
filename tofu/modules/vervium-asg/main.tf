@@ -9,6 +9,8 @@ resource "aws_launch_template" "app" {
   vpc_security_group_ids = [aws_security_group.app.id]
   key_name               = var.key_name
 
+  user_data = base64encode(templatefile("${path.module}/user-data.sh", {environment_name = var.environment_name}))
+
   iam_instance_profile {
     arn = aws_iam_instance_profile.app.arn
   }
