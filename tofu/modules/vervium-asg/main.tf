@@ -10,8 +10,6 @@ resource "aws_launch_template" "app" {
 
   user_data = base64encode(templatefile("${path.module}/user-data.sh", {environment_name = var.environment_name}))
 
-  user_data = base64encode(templatefile("${path.module}/user-data.sh", {environment_name = var.environment_name}))
-
   iam_instance_profile {
     arn = aws_iam_instance_profile.app.arn
   }
