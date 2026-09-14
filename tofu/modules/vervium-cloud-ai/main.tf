@@ -8,23 +8,32 @@ module "asg" {
   # TODO: fill in your own AMI ID below!
   ami = "ami-004d5878b9a69f971"
 
-  # TODO: fill in your own Key Pair name below!
-  key_name = "jim-brikman-personal-mgmt-us-east-2"
-
   min_instances = 2
   max_instances = 5
 
-  vpc_id           = module.vpc.vpc.id
-  subnet_ids       = module.vpc.private_subnets[*].id
-  target_group_arn = module.alb.target_group_arn
+  vpc_id                = module.vpc.vpc.id
+  subnet_ids            = module.vpc.private_subnets[*].id
+  target_group_arn      = module.alb.target_group_arn
+  alb_security_group_id = module.alb.security_group_id
+
+  # Allow the EC2 instances to talk to the interface endpoints so they can make API calls to AWS
+  allow_asg_egress = {
+    interface_endpoints = {
+      ip_protocol                  = "tcp"
+      from_port                    = 443
+      to_port                      = 443
+      referenced_security_group_id = module.vpc.interface_sg_id
+    }
+  }
 }
 
 module "alb" {
   source = "../vervium-alb"
 
-  name       = "vervium-cloud-ai-${var.environment_name}"
-  vpc_id     = module.vpc.vpc.id
-  subnet_ids = module.vpc.public_subnets[*].id
+  name                  = "vervium-cloud-ai-${var.environment_name}"
+  vpc_id                = module.vpc.vpc.id
+  subnet_ids            = module.vpc.public_subnets[*].id
+  app_security_group_id = module.asg.security_group_id
 }
 
 module "vpc" {
@@ -39,7 +48,12 @@ module "vpc" {
     "logs",
     "monitoring",
     "xray",
-    "ec2"
+    "ec2",
+
+    # Endpoints for SSM
+    "ssm",
+    "ssmmessages",
+    "ec2messages"
   ]
 }
 

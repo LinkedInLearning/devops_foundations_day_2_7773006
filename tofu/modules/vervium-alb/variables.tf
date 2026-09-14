@@ -16,3 +16,8 @@ variable "subnet_ids" {
   description = "The IDs of the subnets into which the ALB should be deployed"
   type        = list(string)
 }
+
+variable "app_security_group_id" {
+  description = "The ID of the security group with the EC2 instances for which the ALB does health checks"
+  type        = string
+}
