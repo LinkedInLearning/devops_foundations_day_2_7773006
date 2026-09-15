@@ -15,4 +15,8 @@ inputs = {
     apex_domain = "REPLACE_ME"
     subdomain   = "staging"
   }
+
+  custom_tags = {
+    Testing = "gitops-pipeline"
+  }
 }
