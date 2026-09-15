@@ -67,6 +67,7 @@ data "aws_iam_policy_document" "plan" {
       "s3:Get*",
       "s3:List*",
       "sns:Get*",
+      "sns:List*",
       "ssm:Get*",
       "sts:GetCallerIdentity",
       "vpc-lattice:Describe*",
