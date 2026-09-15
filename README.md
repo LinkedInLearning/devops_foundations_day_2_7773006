@@ -31,7 +31,6 @@ Once you've done that, you can work on the fork using one of the two following o
     4. Use Mise to install the tools for this course:
 
     ```shell
-    cd .devcontainer
     mise trust .mise.toml
     mise install
     ```

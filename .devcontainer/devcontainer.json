@@ -7,7 +7,7 @@
   },
   "containerEnv": {
     "AWS_PAGER": "",
-    "MISE_GLOBAL_CONFIG_FILE": "${containerWorkspaceFolder}/.devcontainer/.mise.toml",
+    "MISE_GLOBAL_CONFIG_FILE": "${containerWorkspaceFolder}/.mise.toml",
     "MISE_TRUSTED_CONFIG_PATHS": "/workspaces"
   },
   "remoteEnv": {
