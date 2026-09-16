@@ -181,6 +181,88 @@ resource "aws_iam_role_policy" "apply" {
   policy = data.aws_iam_policy_document.apply.json
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# PACKER BUILD IAM ROLE
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "aws_iam_role" "packer_build" {
+  name               = var.packer_build_role_name
+  assume_role_policy = data.aws_iam_policy_document.packer_build_trust.json
+}
+
+data "aws_iam_policy_document" "packer_build_trust" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    # Only allow this role to be used on the main branch in the specified repo
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:${local.github_owner}/${local.github_repo}:ref:refs/heads/main"]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "packer_build" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:AttachVolume",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:CopyImage",
+      "ec2:CreateImage",
+      "ec2:CreateKeyPair",
+      "ec2:CreateSecurityGroup",
+      "ec2:CreateSnapshot",
+      "ec2:CreateTags",
+      "ec2:CreateVolume",
+      "ec2:DeleteKeyPair",
+      "ec2:DeleteSecurityGroup",
+      "ec2:DeleteSnapshot",
+      "ec2:DeleteVolume",
+      "ec2:DeregisterImage",
+      "ec2:DescribeImageAttribute",
+      "ec2:DescribeImages",
+      "ec2:DescribeInstances",
+      "ec2:DescribeInstanceStatus",
+      "ec2:DescribeRegions",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSnapshots",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeTags",
+      "ec2:DescribeVolumes",
+      "ec2:DetachVolume",
+      "ec2:GetPasswordData",
+      "ec2:ModifyImageAttribute",
+      "ec2:ModifyInstanceAttribute",
+      "ec2:ModifySnapshotAttribute",
+      "ec2:RegisterImage",
+      "ec2:RunInstances",
+      "ec2:StopInstances",
+      "ec2:TerminateInstances"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role_policy" "packer_build" {
+  name   = "packer-build"
+  role   = aws_iam_role.packer_build.id
+  policy = data.aws_iam_policy_document.packer_build.json
+}
+
 locals {
   # GitHub requires immutable IDs in subject claims for all repos created after July 15, 2026
   # https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/
