@@ -8,7 +8,7 @@ app.set("view engine", "ejs");
 app.use(accessLogger);
 
 app.get("/", (req, res) => {
-  res.render("hello", {metrics: {synergy: "95.6%", powerpoint: "3 min", maturity: "Bronze+"}});
+  res.render("hello", {metrics: {synergy: "95.6%", powerpoint: "3 min", maturity: "Gold+"}});
 });
 
 app.get("/error", (req, res) => {
