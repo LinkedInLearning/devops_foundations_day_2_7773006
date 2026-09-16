@@ -1,4 +1,4 @@
-name: Promote App
+name: Promote App to Prod
 
 on:
   release:
@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  pull-requests: write
 
 jobs:
   promote:
@@ -28,3 +30,6 @@ jobs:
           stage_ami_id="$(jq -r '.ami' "../tofu/live/stage/terraform.tfvars.json")"
 
           ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami" "$stage_ami_id" "chore: promote AMI ID $stage_ami_id to prod ($PROMOTION_REF_NAME)"
+
+      - name: Deploy app in production
+        uses: ./.github/workflows/prod-apply.yml
