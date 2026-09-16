@@ -35,5 +35,8 @@ jobs:
       id-token: write
       actions: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
       - name: Deploy app to stage
         uses: ./.github/workflows/deploy-app-to-stage.yml
