@@ -28,6 +28,7 @@ jobs:
   deploy:
     # TODO: undo this change! Re-enable the if-check; disabled for now just for testing the chapter-05/lab-07 branch.
     # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/chapter-05/lab-07'
     needs: test
     runs-on: ubuntu-latest
     permissions:
