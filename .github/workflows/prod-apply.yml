@@ -15,7 +15,6 @@ permissions:
 
 jobs:
   apply:
-    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/apply.yml
     with:
       tg_dir: tofu/live/prod
