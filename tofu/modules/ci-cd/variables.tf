@@ -38,6 +38,12 @@ variable "apply_role_name" {
   default     = "github-actions-apply"
 }
 
+variable "packer_build_role_name" {
+  description = "Name of the IAM role used for packer build"
+  type        = string
+  default     = "github-actions-packer-build"
+}
+
 variable "github_oidc_provider_url" {
   description = "GitHub OIDC provider URL."
   type        = string
