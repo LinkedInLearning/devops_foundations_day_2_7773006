@@ -5,9 +5,7 @@ module "asg" {
   instance_type    = "t3.micro"
   environment_name = var.environment_name
   custom_tags      = var.custom_tags
-
-  # TODO: fill in your own AMI ID below!
-  ami = "ami-004d5878b9a69f971"
+  ami              = var.ami
 
   min_instances = 2
   max_instances = 5
