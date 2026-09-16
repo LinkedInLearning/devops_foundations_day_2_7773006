@@ -1,0 +1,38 @@
+name: Build App
+
+on:
+  workflow_run:
+    workflows: ["Test App"]
+    types: [completed]
+
+permissions:
+  contents: write
+  id-token: write
+  actions: write
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: us-east-2
+          # TODO: fill in your own IAM role here
+          role-to-assume: "arn:aws:iam::168852252849:role/github-actions-packer-build"
+
+      - name: Build AMI and update AMI ID in stage tfvars file
+        working-directory: app
+        run: |
+          set -eo pipefail
+
+          npm run build | tee packer-build-log.txt
+          ami_id=$(grep 'artifact,0,id' packer-build-log.txt | cut -d, -f6 | cut -d: -f2)
+
+          ./update-tfvars-json.sh "../tofu/live/stage/terraform.tfvars.json" "ami" "$ami_id" "chore: update AMI ID $ami_id"
