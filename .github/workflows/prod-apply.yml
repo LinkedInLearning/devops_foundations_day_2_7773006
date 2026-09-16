@@ -6,9 +6,7 @@ on:
       - main
     paths:
       - 'tofu/live/prod/**'
-  workflow_run:
-    workflows: ["Promote App"]
-    types: [completed]
+  workflow_call:
 
 permissions:
   contents: read
