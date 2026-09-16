@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          # TODO: remove this! It's just a temporary tweak to test this branch.
+          ref: chapter-05/lab-07
 
       - name: Copy stage AMI to prod tfvars file
         working-directory: app
