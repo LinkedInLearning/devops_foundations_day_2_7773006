@@ -13,7 +13,7 @@ on:
         type: string
 
 jobs:
-  apply-on-main:
+  apply:
     name: Terragrunt Apply
     runs-on: ubuntu-latest
     steps:
