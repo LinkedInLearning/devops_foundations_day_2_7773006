@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "build": "packer init app.pkr.hcl && packer build app.pkr.hcl",
+    "build": "packer init app.pkr.hcl && packer build -machine-readable app.pkr.hcl",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose"
   },
   "dependencies": {
