@@ -22,7 +22,7 @@ value="$3"
 message="$4"
 
 echo "Setting $key to $value in $tfvars_path"
-updated_tfvars="$(jq --arg "key" "$key" --arg "value" "$value" '.$key = $value' "$tfvars_path")"
+updated_tfvars="$(jq --arg "key" "$key" --arg "value" "$value" '.[$key] = $value' "$tfvars_path")"
 printf '%s\n' "$updated_tfvars" > "$tfvars_path"
 
 echo "Committing and pushing changes to the main branch"
