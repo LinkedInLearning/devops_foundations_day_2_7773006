@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      # TODO: undo this change! The extra branch is just here for testing.
-      - chapter-05/lab-07
     paths:
       - 'tofu/live/prod/**'
 
