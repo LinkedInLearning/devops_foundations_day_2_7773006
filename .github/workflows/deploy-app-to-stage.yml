@@ -29,5 +29,7 @@ jobs:
 
           ./update-tfvars-json.sh "../tofu/live/stage/terraform.tfvars.json" "ami" "$ami_id" "chore: update AMI ID $ami_id"
 
-      - name: Deploy app in staging
-        uses: ./.github/workflows/stage-apply.yml
+  apply:
+    name: Deploy app in staging
+    needs: deploy
+    uses: ./.github/workflows/stage-apply.yml

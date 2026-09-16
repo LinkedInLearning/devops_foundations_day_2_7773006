@@ -33,5 +33,7 @@ jobs:
 
           ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami" "$stage_ami_id" "chore: promote AMI ID $stage_ami_id to prod ($PROMOTION_REF_NAME)"
 
-      - name: Deploy app in production
-        uses: ./.github/workflows/prod-apply.yml
+  apply:
+    name: Deploy app in production
+    needs: promote
+    uses: ./.github/workflows/prod-apply.yml
