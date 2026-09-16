@@ -1,0 +1,30 @@
+name: Promote App
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'promote-')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Copy stage AMI to prod tfvars file
+        working-directory: app
+        env:
+          PROMOTION_REF_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          set -eo pipefail
+
+          stage_ami_id="$(jq -r '.ami' "../tofu/live/stage/terraform.tfvars.json")"
+
+          ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami" "$stage_ami_id" "chore: promote AMI ID $stage_ami_id to prod ($PROMOTION_REF_NAME)"
