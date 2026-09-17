@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  id-token: write
-  pull-requests: write
 
 jobs:
   promote:
@@ -19,6 +17,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Copy stage AMI to prod tfvars file
         working-directory: app
@@ -30,8 +29,3 @@ jobs:
           stage_ami_id="$(jq -r '.ami' "../tofu/live/stage/terraform.tfvars.json")"
 
           ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami" "$stage_ami_id" "chore: promote AMI ID $stage_ami_id to prod ($PROMOTION_REF_NAME)"
-
-      - name: Deploy app in production
-        uses: ./.github/actions/apply
-        with:
-          tg_dir: tofu/live/prod

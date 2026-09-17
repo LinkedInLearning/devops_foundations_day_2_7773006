@@ -22,12 +22,3 @@ jobs:
         run: |
           npm install
           npm test
-
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: test
-    permissions:
-      contents: write
-      id-token: write
-      pull-requests: write
-    uses: ./.github/workflows/deploy-app-to-stage.yml
