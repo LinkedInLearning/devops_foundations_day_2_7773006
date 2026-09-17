@@ -16,10 +16,30 @@ runs:
         # TODO: fill in your own IAM role ARN!
         role-to-assume: REPLACE_ME
 
-    - uses: jwalton/gh-find-current-pr@v1
+    - name: Find the infrastructure PR
+      if: github.event_name != 'workflow_run'
+      uses: jwalton/gh-find-current-pr@v1
       id: find_pr
       with:
         state: all
+
+    - name: Find the original app PR from the AMI
+      if: github.event_name == 'workflow_run'
+      id: find_ami_pr
+      working-directory: ${{ inputs.tg_dir }}
+      run: |
+        set -euo pipefail
+
+        ami_id=$(jq -er '.ami' terraform.tfvars.json)
+        image=$(aws ec2 describe-images --image-ids "$ami_id" --output json)
+        pr_number=$(jq -r '[.Images[0].Tags[]? | select(.Key == "SourcePR") | .Value][0] // ""' <<< "$image")
+        source_repository=$(jq -r '[.Images[0].Tags[]? | select(.Key == "SourceRepository") | .Value][0] // ""' <<< "$image")
+
+        if [[ "$source_repository" == "$GITHUB_REPOSITORY" && "$pr_number" =~ ^[1-9][0-9]*$ ]]; then
+          echo "number=$pr_number" >> "$GITHUB_OUTPUT"
+        else
+          echo "The AMI has no valid source PR for this repository; skipping the PR comment."
+        fi
 
     # Uses mise.toml for versions
     - name: Run apply
@@ -29,7 +49,7 @@ runs:
         tg_dir: ${{ inputs.tg_dir }}
         tg_command: apply -lock-timeout=60m -no-color -input=false
         tg_add_approve: 1
-        tg_comment: 1
-        tg_comment_url: ${{ case(steps.find_pr.outputs.number == '', '', format('https://api.github.com/repos/{0}/issues/{1}/comments', github.repository, steps.find_pr.outputs.number)) }}
+        tg_comment: ${{ (steps.find_ami_pr.outputs.number || steps.find_pr.outputs.number) != '' && '1' || '0' }}
+        tg_comment_url: ${{ case((steps.find_ami_pr.outputs.number || steps.find_pr.outputs.number) == '', '', format('{0}/repos/{1}/issues/{2}/comments', github.api_url, github.repository, steps.find_ami_pr.outputs.number || steps.find_pr.outputs.number)) }}
       env:
         GITHUB_TOKEN: ${{ github.token }}

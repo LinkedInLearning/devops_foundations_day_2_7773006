@@ -8,6 +8,18 @@ packer {
   }
 }
 
+variable "source_pr" {
+  type        = string
+  description = "The original app PR number, if this AMI was built from a PR."
+  default     = ""
+}
+
+variable "source_repository" {
+  type        = string
+  description = "The GitHub owner/repository containing the original app PR."
+  default     = ""
+}
+
 # Use a data source to automatically find the ID of the latest Ubuntu AMI. AWS releases new versions of this AMI on
 # a regular basis, and it's important to get the latest version, as it has all the newest updates and security patches.
 data "amazon-ami" "ubuntu" {
@@ -29,6 +41,12 @@ source "amazon-ebs" "ubuntu" {
   region          = "us-east-2"
   source_ami      = data.amazon-ami.ubuntu.id
   ssh_username    = "ubuntu"
+
+  # Keep the PR associated with the image as it is promoted between environments.
+  tags = var.source_pr != "" ? {
+    SourcePR         = var.source_pr
+    SourceRepository = var.source_repository
+  } : {}
 }
 
 # Specify the build steps here

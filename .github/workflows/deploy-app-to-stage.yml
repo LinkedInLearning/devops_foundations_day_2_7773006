@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write
   id-token: write
+  pull-requests: read
 
 jobs:
   deploy:
@@ -19,7 +20,15 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: main
+          # Build the same commit that passed Test App, even if main has advanced.
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Find the original app PR
+        uses: jwalton/gh-find-current-pr@v1
+        id: source_pr
+        with:
+          state: all
+          sha: ${{ github.event.workflow_run.head_sha }}
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v6
@@ -30,10 +39,17 @@ jobs:
 
       - name: Build AMI and update AMI ID in stage tfvars file
         working-directory: app
+        env:
+          PKR_VAR_source_pr: ${{ steps.source_pr.outputs.number }}
+          PKR_VAR_source_repository: ${{ github.repository }}
         run: |
           set -eo pipefail
 
           npm run build | tee packer-build-log.txt
           ami_id=$(grep 'artifact,0,id' packer-build-log.txt | cut -d, -f6 | cut -d: -f2)
+
+          # Commit the AMI update on main rather than the detached build commit.
+          git fetch origin main
+          git checkout -B main origin/main
 
           ./update-tfvars-json.sh "../tofu/live/stage/terraform.tfvars.json" "ami" "$ami_id" "chore: update AMI ID to $ami_id in stage"
