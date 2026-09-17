@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "main"
-      # TODO: undo this change! The extra branch is just here for testing.
-      - chapter-05/lab-07
     paths:
       - 'app/**'
   pull_request:
@@ -26,9 +24,7 @@ jobs:
           npm test
 
   deploy:
-    # TODO: undo this change! Re-enable the if-check; disabled for now just for testing the chapter-05/lab-07 branch.
-    # if: github.ref == 'refs/heads/main'
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/chapter-05/lab-07'
+    if: github.ref == 'refs/heads/main'
     needs: test
     permissions:
       contents: write
