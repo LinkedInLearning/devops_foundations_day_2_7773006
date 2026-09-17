@@ -27,7 +27,7 @@ jobs:
           npm run build | tee packer-build-log.txt
           ami_id=$(grep 'artifact,0,id' packer-build-log.txt | cut -d, -f6 | cut -d: -f2)
 
-          ./update-tfvars-json.sh "../tofu/live/stage/terraform.tfvars.json" "ami" "$ami_id" "chore: update AMI ID $ami_id"
+          ./update-tfvars-json.sh "../tofu/live/stage/terraform.tfvars.json" "ami" "$ami_id" "chore: update AMI ID to $ami_id in stage"
 
       - name: Deploy app in staging
         uses: ./.github/actions/apply
