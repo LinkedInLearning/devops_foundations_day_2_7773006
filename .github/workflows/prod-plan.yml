@@ -12,8 +12,12 @@ permissions:
 
 jobs:
   plan:
-    uses: ./.github/workflows/plan.yml
-    with:
-      tg_dir: tofu/live/prod
-      # TODO: fill in your own IAM role ARN!
-      role_to_assume: arn:aws:iam::168852252849:role/github-actions-plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Plan production
+        uses: ./.github/actions/plan
+        with:
+          tg_dir: tofu/live/prod

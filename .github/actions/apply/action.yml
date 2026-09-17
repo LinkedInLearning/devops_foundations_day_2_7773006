@@ -1,0 +1,35 @@
+name: Apply
+description: Run 'terragrunt apply' on the existing checkout and add a comment to the PR with the result.
+
+inputs:
+  tg_dir:
+    description: Terragrunt directory to run the apply in.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Configure AWS credentials for apply (OIDC)
+      uses: aws-actions/configure-aws-credentials@v6
+      with:
+        aws-region: us-east-2
+        # TODO: fill in your own IAM role ARN!
+        role-to-assume: arn:aws:iam::168852252849:role/github-actions-apply
+
+    - uses: jwalton/gh-find-current-pr@v1
+      id: find_pr
+      with:
+        state: all
+
+    # Uses mise.toml for versions
+    - name: Run apply
+      id: apply
+      uses: gruntwork-io/terragrunt-action@v3
+      with:
+        tg_dir: ${{ inputs.tg_dir }}
+        tg_command: apply -lock-timeout=60m -no-color -input=false
+        tg_add_approve: 1
+        tg_comment: 1
+        tg_comment_url: ${{ case(steps.find_pr.outputs.number == '', '', format('https://api.github.com/repos/{0}/issues/{1}/comments', github.repository, steps.find_pr.outputs.number)) }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

@@ -14,8 +14,12 @@ permissions:
 
 jobs:
   apply:
-    uses: ./.github/workflows/apply.yml
-    with:
-      tg_dir: tofu/live/prod
-      # TODO: fill in your own IAM role ARN!
-      role_to_assume: arn:aws:iam::168852252849:role/github-actions-apply
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Apply production
+        uses: ./.github/actions/apply
+        with:
+          tg_dir: tofu/live/prod
