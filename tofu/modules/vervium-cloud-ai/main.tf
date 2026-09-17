@@ -5,7 +5,7 @@ module "asg" {
   instance_type    = "t3.micro"
   environment_name = var.environment_name
   custom_tags      = var.custom_tags
-  ami              = var.ami
+  ami              = data.aws_ami.app.id
 
   min_instances = 2
   max_instances = 5
@@ -85,4 +85,19 @@ module "dashboard" {
   alb_arn          = module.alb.alb_arn
   target_group_arn = module.alb.target_group_arn
   asg_name         = module.asg.asg_name
+}
+
+data "aws_ami" "app" {
+  most_recent = true
+  owners      = ["self"]
+
+  filter {
+    name   = "name"
+    values = ["vervium-cloudai-${var.ami_ref}*"]
+  }
+
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
 }

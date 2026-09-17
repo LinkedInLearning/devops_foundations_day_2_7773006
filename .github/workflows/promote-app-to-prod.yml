@@ -19,13 +19,13 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Copy stage AMI to prod tfvars file
+      - name: Copy stage app ref to prod tfvars file
         working-directory: app
         env:
           PROMOTION_REF_NAME: ${{ github.event.release.tag_name }}
         run: |
           set -eo pipefail
 
-          stage_ami_id="$(jq -r '.ami' "../tofu/live/stage/terraform.tfvars.json")"
+          ami_ref=$(jq -er '.ami_ref' ../tofu/live/stage/terraform.tfvars.json)
 
-          ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami" "$stage_ami_id" "chore: promote AMI ID $stage_ami_id to prod ($PROMOTION_REF_NAME)"
+          ./update-tfvars-json.sh "../tofu/live/prod/terraform.tfvars.json" "ami_ref" "$ami_ref" "chore: promote app ref $ami_ref to prod ($PROMOTION_REF_NAME)"

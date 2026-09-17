@@ -20,8 +20,8 @@ variable "custom_domain_name" {
   })
 }
 
-variable "ami" {
-  description = "The ID of the AMI to deploy"
+variable "ami_ref" {
+  description = "The Git commit SHA of the app to deploy. Selects the most recent available AMI named vervium-cloudai-<ref>*. An empty ref selects the latest app AMI."
   type        = string
 }
 
