@@ -29,5 +29,5 @@ module "availability_monitoring" {
   }
 
   # TODO: fill in your own email addresses
-  alerts_email_addresses = ["jim+devops-foundations-test-1@gruntwork.io"]
+  alerts_email_addresses = ["REPLACE_ME"]
 }
