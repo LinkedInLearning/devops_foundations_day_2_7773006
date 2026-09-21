@@ -7,10 +7,10 @@ resource "aws_instance" "vervium_cloud_ai" {
   vpc_security_group_ids = [aws_security_group.vervium_cloud_ai.id]
 
   # TODO: fill in your own AMI ID below!
-  ami = "ami-09f833cbef0620166"
+  ami = "REPLACE_ME"
 
   # TODO: fill in your own Key Pair name below!
-  key_name = "jim-brikman-personal-mgmt-us-east-2"
+  key_name = "REPLACE_ME"
 
   tags = {
     Name = "vervium-cloud-ai"
