@@ -1,5 +1,5 @@
-module "vervium_cloud_ai" {
-  source = "../../modules/vervium-ec2"
+module "asg" {
+  source = "../../modules/vervium-asg"
 
   name          = "vervium-cloud-ai"
   instance_type = "t3.micro"
