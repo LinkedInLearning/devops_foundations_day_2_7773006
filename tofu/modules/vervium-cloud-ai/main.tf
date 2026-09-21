@@ -6,10 +6,10 @@ module "asg" {
   environment_name = var.environment_name
 
   # TODO: fill in your own AMI ID below!
-  ami = "ami-004d5878b9a69f971"
+  ami = "REPLACE_ME"
 
   # TODO: fill in your own Key Pair name below!
-  key_name = "jim-brikman-personal-mgmt-us-east-2"
+  key_name = "REPLACE_ME"
 
   min_instances = 2
   max_instances = 5
@@ -61,7 +61,7 @@ module "availability_monitoring" {
   }
 
   # TODO: fill in your own email addresses
-  alerts_email_addresses = ["jim+devops-foundations-test-1@gruntwork.io"]
+  alerts_email_addresses = ["REPLACE_ME"]
 }
 
 module "dashboard" {
