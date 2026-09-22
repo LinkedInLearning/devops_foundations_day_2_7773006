@@ -12,7 +12,7 @@ inputs = {
 
   # TODO: fill in your own domain name!
   custom_domain_name = {
-    apex_domain = "devops-foundations.com"
+    apex_domain = "REPLACE_ME"
     subdomain   = "staging"
   }
 }
