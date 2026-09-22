@@ -27,7 +27,7 @@ jobs:
         with:
           aws-region: us-east-2
           # TODO: fill in your own IAM role here
-          role-to-assume: "arn:aws:iam::168852252849:role/github-actions-packer-build"
+          role-to-assume: "REPLACE_ME"
 
       - name: Build AMI and update app ref in stage tfvars file
         working-directory: app
