@@ -14,7 +14,7 @@ runs:
       with:
         aws-region: us-east-2
         # TODO: fill in your own IAM role ARN!
-        role-to-assume: arn:aws:iam::168852252849:role/github-actions-plan
+        role-to-assume: REPLACE_ME
 
     # Uses mise.toml for versions
     - name: Run plan

@@ -14,7 +14,7 @@ runs:
       with:
         aws-region: us-east-2
         # TODO: fill in your own IAM role ARN!
-        role-to-assume: arn:aws:iam::168852252849:role/github-actions-apply
+        role-to-assume: REPLACE_ME
 
     - uses: jwalton/gh-find-current-pr@v1
       id: find_pr
