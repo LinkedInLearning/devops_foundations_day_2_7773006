@@ -35,7 +35,8 @@
         "linkedinlearning.linkedinlearning-vscode-theme",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "hashicorp.hcl"
+        "hashicorp.hcl",
+        "OpenTofu.vscode-opentofu"
       ]
     }
   }
