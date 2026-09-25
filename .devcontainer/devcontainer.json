@@ -29,13 +29,18 @@
     },
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "remote.extensionKind": {
+          "HashiCorp.HCL": [
+            "ui"
+          ]
+        }
       },
       "extensions": [
         "linkedinlearning.linkedinlearning-vscode-theme",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "hashicorp.hcl",
+        "HashiCorp.HCL",
         "OpenTofu.vscode-opentofu"
       ]
     }
