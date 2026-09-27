@@ -7,28 +7,33 @@ This is the repository for the LinkedIn Learning course `DevOps Foundations Day 
 
 ## Getting started
 
-First, [create a fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) of this repo in
-your own GitHub account so you can commit & push changes.
+You can do all the labs in this course using one of the following options:
 
-Once you've done that, you can work on the fork using one of the two following options:
+1. **GitHub Codespaces**. Codespaces gives you a virtual environment in your web browser with an IDE (Visual Studio
+   Code), a terminal, and all the tools you need already installed, so you can write and run code without having to
+   install anything locally. To use codespaces:
 
-1. **Codespaces**. Codespaces gives you a virtual environment with an IDE (Visual Studio Code), a terminal, and all the
-   tools you need already installed, so you can write and run code from your web browser, without having to install
-   anything locally. To use codespaces:
+    ![Screenshot of a starting Codespaces](/images/codespaces.png)
 
-    1. Click the green Code button in the top right of your fork of the repo.
+    1. Click the green Code button in the top right.
     2. Select the Codespaces tab.
     3. Click the "Create codespace on main" button.
+    4. The first time you try to do a `git push`, Codespaces will automatically create a fork of the repo in your
+       GitHub account. Use this fork for all of your code changes.
 
 2. **Your own computer**. Alternatively, you can install and run everything from your own computer. Note that the
    scripts and commands in this course assume you’re on Linux or macOS; if you’re on Windows, you’ll need to use the
    [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) or
    [Cygwin](https://cygwin.com/).
 
-    1. `git clone` your fork of the repo into a folder on your computer.
-    2. Go into that folder.
-    3. [Install Mise](https://mise.jdx.dev/getting-started.html).
-    4. Use Mise to install the tools for this course:
+    ![Screenshot of forking the repo](/images/fork.png)
+
+    1. [Create a fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) of this repo in
+       your own GitHub account so you can commit & push changes.
+    2. `git clone` your fork of the repo into a folder on your computer.
+    3. Go into that folder.
+    4. [Install Mise](https://mise.jdx.dev/getting-started.html).
+    5. Use Mise to install the tools for this course:
 
     ```shell
     mise trust .mise.toml
