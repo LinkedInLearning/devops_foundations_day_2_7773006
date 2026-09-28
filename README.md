@@ -65,7 +65,7 @@ This course consists of a series of labs that build on each other.
 
     * Open [the branches page](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/branches/all) in
       your browser.
-    * Run `git branch` in your terminal.
+    * Run `git branch -a` in your terminal.
 
 * **See what changed between labs.** If you want to see what changed between two labs, rather than just
   what the code looks like at the end of a lab, you can do one of the following:
@@ -73,11 +73,11 @@ This course consists of a series of labs that build on each other.
     * [Use GitHub compare](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/compare/) in your
       browser. You can use the UI to select the branches to compare, or you can manually format the URL: e.g., use
       `/compare/<BRANCH_1>...<BRANCH_2>` to compare `BRANCH_1` to `BRANCH_2`. For example, to see the changes between
-      lab 5 and lab 8 of Chapter 8, use the URL
+      lab 5 and lab 8 of Chapter 2, use the URL
       [/compare/chapter-02/lab-05...chapter-02/lab-08](https://github.com/LinkedInLearning/devops_foundations_day_2_7773006/compare/chapter-02/lab-05...chapter-02/lab-08).
 
     * Run `git diff <BRANCH_1> <BRANCH_2>` in your terminal. For example, to see the changes between lab 5 and lab 8 of
-      Chapter 8, run `git diff chapter-02/lab-05 chapter-02/lab-08`.
+      Chapter 2, run `git diff chapter-02/lab-05 chapter-02/lab-08`.
 
 <!-- TODO: fill in these URLs -->
 
