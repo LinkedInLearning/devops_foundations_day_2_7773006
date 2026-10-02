@@ -69,9 +69,9 @@ module "availability_monitoring" {
   name = "vervium-cloud-ai-${var.environment_name}"
 
   app_url = {
-    scheme = "http"
+    scheme = "https"
     host   = module.alb.domain_name
-    port   = 80
+    port   = 443
     path   = "/"
   }
 
