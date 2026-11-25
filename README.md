@@ -5,6 +5,16 @@ This is the repository for the LinkedIn Learning course `DevOps Foundations Day 
 
 ![course-name-alt-text][lil-thumbnail-url]
 
+## Course description
+Explore the critical "Day 2" operations skills needed for maintaining, scaling, and operating production systems through "DevOps Foundations". Learn how to manage infrastructure as code using vital tools like Terraform and OpenTofu, ensuring your deployment process is automated and reliable. Delve into establishing effective observability to troubleshoot and resolve issues swiftly using metrics and logging tools like Datadog and CloudWatch. Learn about the importance of maintaining secure environments through private networking, data encryption, and continuous integration and delivery commands using GitOps practices. Targeted at software engineers, operations professionals, and technical leads, this course is ideal for anyone who manages production systems and desires to elevate their DevOps skills. Instructed by industry expert Jim Brikman, this course provides real-world, hands-on learning examples to deepen understanding. By concluding the course, you'll be more prepared to seamlessly integrate DevOps principles into your operations, fostering rapid and reliable software delivery in any organizational setting. Whether you're a developer or manager, advancing your knowledge of Day 2 operations will be invaluable in achieving peak operational efficiency.
+
+## Learning objectives
+- Explain core DevOps principles and their role in modern software delivery.
+- Identify how CI/CD, automation, and Infrastructure as Code operate together in real workflows.
+- Recognize patterns used to ship reliable software, including testing and deployment strategies.
+- Assess how work flows from code, to build, to deplo, to operate, to pinpoint bottlenecks and risks.
+- Apply foundational DevOps concepts to evaluate collaboration, reliability, and delivery processes in real-world contexts.
+
 ## Getting started
 
 You can do all the labs in this course using one of the following options:
@@ -82,5 +92,5 @@ This course consists of a series of labs that build on each other.
 <!-- TODO: fill in these URLs -->
 
 [lil-course-url]: https://www.linkedin.com/learning/
-[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQG0eDHsyOSqTA/learning-public-crop_675_1200/B4EZVdqqdwHUAY-/0/1741033220778?e=2147483647&v=beta&t=FxUDo6FA8W8CiFROwqfZKL_mzQhYx9loYLfjN-LNjgA
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D560DAQEVkb8-NE3nuw/learning-public-crop_675_1200/B56aGtq5DXJoAY-/0/1793915065175?e=2147483647&v=beta&t=nitd43BBzZb8dwwfBDH_pOwMHWYGJtLPd0c0mI41Nyg
 
