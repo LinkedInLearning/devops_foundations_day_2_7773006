@@ -91,6 +91,10 @@ This course consists of a series of labs that build on each other.
 
 <!-- TODO: fill in these URLs -->
 
+## Instructor
+Yevgeniy (Jim) Brikman - Engineering and Computer Science Expert | Co-founder of Gruntwork | Author
+
+</p><p> Jim has 20+ years of experience as a software engineer, building infrastructure and products with LinkedIn, TripAdvisor, Cisco Systems, and Thomson Financial. He is the co-founder of Gruntwork, a company that that offers products and services for setting up world-class DevOps foundations. He's also the author of three books published by O'Reilly Media: <i>Fundamentals of DevOps and Software Delivery</i>, <i>Terraform: Up & Running</i>, and <i>Hello, Startup</i>.
 [lil-course-url]: https://www.linkedin.com/learning/
 [lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D560DAQEVkb8-NE3nuw/learning-public-crop_675_1200/B56aGtq5DXJoAY-/0/1793915065175?e=2147483647&v=beta&t=nitd43BBzZb8dwwfBDH_pOwMHWYGJtLPd0c0mI41Nyg
 
